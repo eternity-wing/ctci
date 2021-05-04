@@ -4,33 +4,23 @@ import (
 	"strconv"
 )
 
-func CompressString(str string) string {
+func CompressString(str string) (result string) {
 	strLen := len(str)
 	compressedString := ""
-	numberOfReplacements := 0
+	result = str
+	charRepeats := 0
 
-	var previousCharacter string
-	repeatCount := 0
-	for i := 0 ; i <= strLen ; i++{
-		var char string
-		if i< strLen{
-			char = string(str[i])
+	for i := 0; i < strLen; i++ {
+		char := string(str[i])
+		charRepeats++
+		if i + 1 >= strLen || char != string(str[i+1]) {
+			compressedString += char + strconv.Itoa(charRepeats)
+			charRepeats = 0
 		}
-
-		repeatCount++
-		if char == previousCharacter{
-			continue
-		}
-		if i > 0{
-			numberOfReplacements++
-			compressedString += previousCharacter + strconv.Itoa(repeatCount)
-		}
-		repeatCount = 0
-		previousCharacter = char
 	}
-	if (numberOfReplacements * 2) < strLen{
-		return compressedString
-	}
-	return str
 
+	if len(compressedString) < strLen {
+		result = compressedString
+	}
+	return result
 }

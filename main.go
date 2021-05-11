@@ -1,17 +1,22 @@
 package main
 
 import (
-	"fmt"
-	"github.com/eternity-wings/dev_talks/arraysandhashmaps"
+	"github.com/eternity-wings/dev_talks/linkedlist"
 )
 
-func main()  {
-	//myMtr := [][]int{
-	//	{0 , 2 ,  3},
-	//	{4 , 0 ,  6},
-	//	{7 , 8 ,  9},
-	//	{10, 11, 12},
-	//}
+func main() {
+	firstArray := []int{7, 1, 6}
+	firstList := linkedlist.BidirectionalLinkedList{}
+	for _, value := range firstArray {
+		firstList.InsertItem(value)
+	}
 
-	fmt.Printf("\nCompressed string: %s\n", arraysandhashmaps.CompressString("aabcccccaaa"))
+	secondArray := []int{5, 9, 2, 3, 3, 1}
+	secondList := linkedlist.BidirectionalLinkedList{}
+	for _, value := range secondArray {
+		secondList.InsertItem(value)
+	}
+
+	_ = firstList.Add(secondList)
+
 }

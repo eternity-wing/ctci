@@ -68,6 +68,17 @@ func (b *BidirectionalLinkedList) InsertItem(data interface{}) {
 	b.length++
 }
 
+func (b *BidirectionalLinkedList) InsertNode(node *Node) {
+	if b.Head == nil {
+		b.Head = node
+		b.Tail = node
+	} else {
+		b.Tail.Next = node
+		b.Tail = node
+	}
+	b.length++
+}
+
 func (b *BidirectionalLinkedList) DeleteDuplicates() {
 	for node := b.Head; node != nil; node = node.Next {
 		for runner := node.Next; runner != nil; runner = runner.Next {
@@ -108,7 +119,7 @@ func (b *BidirectionalLinkedList) Add(secondList BidirectionalLinkedList) (resul
 	firstPointer := b.Head
 	secondPointer := secondList.Head
 	overflow := 0
-	for ; firstPointer != nil || secondPointer != nil; {
+	for firstPointer != nil || secondPointer != nil {
 		firstDigit := 0
 		secondDigit := 0
 		if firstPointer != nil {
@@ -127,9 +138,88 @@ func (b *BidirectionalLinkedList) Add(secondList BidirectionalLinkedList) (resul
 			Data: resultDigit,
 		}
 		result.Head = resultNode
-
 	}
 	result.Display()
 	return result
+
+}
+
+func (b *BidirectionalLinkedList) PrintIntersections(secondList BidirectionalLinkedList) {
+	for l1Node := b.Head; l1Node != nil; l1Node = l1Node.Next {
+		for l2Node := secondList.Head; l2Node != nil; l2Node = l2Node.Next {
+			if l2Node == l1Node {
+				fmt.Printf("%v ->", l2Node.Data)
+			}
+		}
+	}
+}
+
+func (b *BidirectionalLinkedList) IsPalindrome() bool {
+	reverseList := BidirectionalLinkedList{}
+	for node := b.Head; node != nil; node = node.Next {
+		reverseHead := reverseList.Head
+		newNode := &Node{
+			Data: node.Data,
+			Next: reverseHead,
+		}
+		reverseList.Head = newNode
+	}
+
+	l1Node := b.Head
+	reverseNode := reverseList.Head
+	for l1Node != nil {
+		if l1Node.Data != reverseNode.Data {
+			return false
+		}
+		l1Node = l1Node.Next
+		reverseNode = reverseNode.Next
+	}
+
+	return true
+
+}
+
+func (b *BidirectionalLinkedList) LoopBeginningDetector() {
+	loopBeginning := b.GetBeginningDetector()
+
+	if loopBeginning == nil {
+		fmt.Printf("\nThere is no loop")
+	} else {
+		fmt.Printf("\nBeginning node:%+v", loopBeginning)
+	}
+}
+
+func (b *BidirectionalLinkedList) GetBeginningDetector() (LoopBeginning *Node) {
+	loopCollisionSpot := b.GetLoopCollisionSpot()
+
+	if loopCollisionSpot == nil {
+		return nil
+	}
+	for turtle := b.Head; ; {
+		isLoopBeginningSpot := turtle == loopCollisionSpot
+		if isLoopBeginningSpot {
+			LoopBeginning = turtle
+			return LoopBeginning
+		}
+		turtle = turtle.Next
+		loopCollisionSpot = loopCollisionSpot.Next
+	}
+
+}
+
+func (b *BidirectionalLinkedList) GetLoopCollisionSpot() (CollisionSpot *Node) {
+	turtle := b.Head
+	rabbit := b.Head
+
+	for !(turtle.Next == nil || rabbit.Next == nil || rabbit.Next.Next == nil) {
+		turtle = turtle.Next
+		rabbit = rabbit.Next.Next
+		isCollisionSpot := turtle == rabbit
+		if isCollisionSpot {
+			CollisionSpot = rabbit
+			return CollisionSpot
+		}
+	}
+	return nil
 
 }

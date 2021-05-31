@@ -2,14 +2,14 @@ package main
 
 func main() {
 
-	//firstArray := []int{1, 2, 3, 4, 5, 6, 7, 8}
-	//q := myqueue.Queue{}
+	//firstArray := []int{9, 10, 1, -1, 27, 12, 9, 21, -22, 7, 3}
+	//s := sortedstack.SortedStack{}
 	//for _, value := range firstArray {
-	//	q.Enqueue1(value)
+	//	s.Push(value)
 	//}
-	//q.Display()
-	//for value := q.Dequeue1(); value != nil ; value = q.Dequeue1(){
-	//	fmt.Printf("\n%d", *value)
-	//}
-
+	//s.Display()
+	//fmt.Printf("\npeek%d", *s.Peek())
+	//fmt.Printf("\npop%d", *s.Pop())
+	//fmt.Printf("\npeek%d\n", *s.Peek())
+	//s.Display()
 }

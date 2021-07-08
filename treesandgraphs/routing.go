@@ -6,8 +6,8 @@ import (
 )
 
 func DoesRouteExist(g graph.Graph, source string, destination string) bool {
-	sourceNode := g.Nodes[source]
-	destinationNode := g.Nodes[destination]
+	sourceNode := g.Vertices[source]
+	destinationNode := g.Vertices[destination]
 
 	var visitedNodes = make(map[string]bool)
 	path := list.New()
@@ -16,7 +16,7 @@ func DoesRouteExist(g graph.Graph, source string, destination string) bool {
 	visitedNodes[sourceNode.Data] = true
 
 	for frontElement := path.Front(); path.Len() > 0; frontElement = path.Front() {
-		frontNode := frontElement.Value.(graph.Node)
+		frontNode := frontElement.Value.(graph.Vertex)
 		path.Remove(frontElement)
 		if frontNode.Data == destinationNode.Data {
 			return true
@@ -27,8 +27,8 @@ func DoesRouteExist(g graph.Graph, source string, destination string) bool {
 }
 
 
-func visitUnvisitedNeighborsOfTheNode(node graph.Node, visitQueue *list.List, visitedNodes map[string]bool)  {
-	for _, nextNode := range node.Neighbors {
+func visitUnvisitedNeighborsOfTheNode(node graph.Vertex, visitQueue *list.List, visitedNodes map[string]bool)  {
+	for _, nextNode := range node.Neighbours {
 		if !visitedNodes[nextNode.Data] {
 			visitQueue.PushBack(nextNode)
 			visitedNodes[nextNode.Data] = true

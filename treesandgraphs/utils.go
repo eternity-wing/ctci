@@ -6,7 +6,7 @@ import (
 	"math"
 )
 
-func PrintInOrder(node *BSTNode) {
+func PrintInOrder(node *BinaryTreeNode) {
 	if node == nil {
 		return
 	}
@@ -25,18 +25,16 @@ func GenerateMinimalTree(t *BinarySearchTree, array []int, start int, end int) {
 	GenerateMinimalTree(t, array, rootIndex+1, end)
 }
 
-
-func GetBSTNodeBalanceFactor(node BSTNode) int {
+func GetBSTNodeBalanceFactor(node BinaryTreeNode) int {
 	return GetBSTNodeHeight(node.LeftChild) - GetBSTNodeHeight(node.RightChild)
 }
 
-func GetBSTNodeHeight(node *BSTNode) int {
-	if node == nil{
+func GetBSTNodeHeight(node *BinaryTreeNode) int {
+	if node == nil {
 		return -1
 	}
 	return int(math.Max(float64(GetBSTNodeHeight(node.LeftChild)), float64(GetBSTNodeHeight(node.RightChild))) + 1)
 }
-
 
 func GetBreathNodes(bst BinarySearchTree) map[int]*list.List {
 	listOfDepths := make(map[int]*list.List)
@@ -46,27 +44,24 @@ func GetBreathNodes(bst BinarySearchTree) map[int]*list.List {
 	return listOfDepths
 }
 
-
-func StoreDepthNodesList(sameLevelNodes *list.List, level int, listOfDepths map[int]*list.List)  {
-	if sameLevelNodes == nil || sameLevelNodes.Len() == 0{
+func StoreDepthNodesList(sameLevelNodes *list.List, level int, listOfDepths map[int]*list.List) {
+	if sameLevelNodes == nil || sameLevelNodes.Len() == 0 {
 		return
 	}
 	listOfDepths[level] = sameLevelNodes
 	StoreDepthNodesList(GetNodesListChildren(sameLevelNodes), level+1, listOfDepths)
 }
 
-
 func GetNodesListChildren(nodes *list.List) *list.List {
 	childrenQueue := list.New()
 	for frontElement := nodes.Front(); frontElement != nil; frontElement = frontElement.Next() {
-		EnqueueNodeChildren(frontElement.Value.(*BSTNode), childrenQueue)
+		EnqueueNodeChildren(frontElement.Value.(*BinaryTreeNode), childrenQueue)
 	}
 	return childrenQueue
 }
 
-
-func EnqueueNodeChildren(node *BSTNode, queue *list.List)  {
-	if node == nil{
+func EnqueueNodeChildren(node *BinaryTreeNode, queue *list.List) {
+	if node == nil {
 		return
 	}
 	if node.LeftChild != nil {
@@ -78,18 +73,33 @@ func EnqueueNodeChildren(node *BSTNode, queue *list.List)  {
 	}
 }
 
-
-func PrintBreathNodes(bst BinarySearchTree)  {
+func PrintBreathNodes(bst BinarySearchTree) {
 	result := GetBreathNodes(bst)
 
-	for depth, nodes := range result{
+	for depth, nodes := range result {
 		fmt.Printf("dept: %d\nnodes:\t", depth)
-		for ; nodes.Len() > 0 ;{
+		for ; nodes.Len() > 0; {
 			frontElement := nodes.Front()
-			frontNode := frontElement.Value.(*BSTNode)
+			frontNode := frontElement.Value.(*BinaryTreeNode)
 			fmt.Printf("%d\t", frontNode.Data)
 			nodes.Remove(frontElement)
 		}
 		fmt.Printf("\n")
 	}
+}
+
+func GetMinNode(root *BinaryTreeNode) *BinaryTreeNode {
+	for ; root.LeftChild != nil; root = root.LeftChild {
+	}
+	return root
+}
+
+func GetGreaterAncestor(node *BinaryTreeNode) *BinaryTreeNode {
+	if node == nil {
+		return nil
+	}
+	parent := node.Parent
+	for ; parent != nil && parent.Data < node.Data; parent = parent.Parent {
+	}
+	return parent
 }

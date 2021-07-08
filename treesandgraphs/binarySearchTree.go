@@ -2,11 +2,11 @@ package treesandgraphs
 
 
 type BinarySearchTree struct {
-	Root *BSTNode
+	Root *BinaryTreeNode
 }
 
 func (b *BinarySearchTree) Add(value int)  {
-	newNode := &BSTNode{
+	newNode := &BinaryTreeNode{
 		Data: value,
 	}
 
@@ -21,6 +21,7 @@ func (b *BinarySearchTree) Add(value int)  {
 		}
 		if node.Data < newNode.Data && node.RightChild == nil {
 			node.RightChild = newNode
+			newNode.Parent = node
 			return
 		}else if node.Data < newNode.Data{
 			node = node.RightChild
@@ -29,6 +30,7 @@ func (b *BinarySearchTree) Add(value int)  {
 
 		if node.Data > newNode.Data && node.LeftChild == nil {
 			node.LeftChild = newNode
+			newNode.Parent = node
 			return
 		}else if node.Data > newNode.Data{
 			node = node.LeftChild
@@ -50,4 +52,5 @@ func (b *BinarySearchTree) IsBalance() bool  {
 func (b *BinarySearchTree) PrintInOrder()  {
 	PrintInOrder(b.Root)
 }
+
 

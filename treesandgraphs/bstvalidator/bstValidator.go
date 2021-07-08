@@ -10,7 +10,7 @@ func IsTreeValid(tree treesandgraphs.BinarySearchTree) bool  {
 }
 
 
-func validateBSTNode(node *treesandgraphs.BSTNode, min float64, max float64) bool  {
+func validateBSTNode(node *treesandgraphs.BinaryTreeNode, min float64, max float64) bool  {
 	if node == nil {
 		return true
 	}

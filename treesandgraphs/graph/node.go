@@ -1,21 +1,21 @@
 package graph
 
-type Node struct {
-	Neighbors map[string]Node
-	Data      string
+type Vertex struct {
+	Neighbours map[string]Vertex
+	Data       string
 }
 
-func NewNode(data string) Node {
-	return Node{Data: data, Neighbors: make(map[string]Node)}
+func NewVertex(data string) Vertex {
+	return Vertex{Data: data, Neighbours: make(map[string]Vertex)}
 }
 
-func (n *Node) IsNeighbor(v Node) bool {
-	_, found := n.Neighbors[v.Data]
+func (n *Vertex) IsNeighbour(v Vertex) bool {
+	_, found := n.Neighbours[v.Data]
 	return found
 }
 
-func (n *Node) AddNeighbor(v Node)  {
-	if !n.IsNeighbor(v){
-		n.Neighbors[v.Data] = v
+func (n *Vertex) AddNeighbour(v Vertex)  {
+	if !n.IsNeighbour(v){
+		n.Neighbours[v.Data] = v
 	}
 }

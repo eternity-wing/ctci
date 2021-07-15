@@ -5,6 +5,6 @@ import (
 )
 
 func main() {
-	treesandgraphs.GetPathToTheNodeExample()
+	treesandgraphs.RunExampleOfIsSubtree()
 	//treesandgraphs.PrintInOrder(tree.Root)
 }

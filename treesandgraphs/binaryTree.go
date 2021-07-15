@@ -1,6 +1,9 @@
 package treesandgraphs
 
-import "container/list"
+import (
+	"container/list"
+	"fmt"
+)
 
 type BinaryTree struct {
 	Root *BinaryTreeNode
@@ -51,6 +54,25 @@ func (b *BinaryTree) PrintInOrder()  {
 }
 
 
+func (b *BinaryTree) Find(value int) *BinaryTreeNode {
+	return b.findNodeByValue(b.Root, value)
+}
+
+func (b *BinaryTree) findNodeByValue(node *BinaryTreeNode, value int) (found *BinaryTreeNode ){
+	if node == nil || node.Data == value{
+		return node
+	}
+
+	if found = b.findNodeByValue(node.LeftChild, value); found != nil {
+		return found
+	}
+
+	if found = b.findNodeByValue(node.RightChild, value); found != nil {
+		return found
+	}
+	return nil
+}
+
 func RunExampleOfBinarySearchTree() {
 	tree := BinaryTree{}
 	tree.Insert(NewBinaryTreeNode(10))
@@ -63,4 +85,7 @@ func RunExampleOfBinarySearchTree() {
 	tree.Insert(NewBinaryTreeNode(4))
 	tree.Insert(NewBinaryTreeNode(6))
 	tree.PrintInOrder()
+	found := tree.Find(10)
+	fmt.Printf("\nfound:%+v", found)
 }
+

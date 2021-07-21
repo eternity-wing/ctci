@@ -5,6 +5,6 @@ import (
 )
 
 func main() {
-	treesandgraphs.RunExampleOfIsSubtree()
+	treesandgraphs.RunExampleOfGetPathWithSums()
 	//treesandgraphs.PrintInOrder(tree.Root)
 }

@@ -2,17 +2,19 @@ package treesandgraphs
 
 import "fmt"
 
+// TLR
+// TRL
+
 func RunExampleOfPrintBstSequencesOfTheTree() {
 	tree := BinarySearchTree{}
+	tree.Add(20)
 	tree.Add(10)
-	tree.Add(15)
-	tree.Add(13)
-	tree.Add(16)
-	tree.Add(17)
+	tree.Add(22)
 	tree.Add(5)
-	tree.Add(3)
-	tree.Add(4)
-	tree.Add(6)
+	tree.Add(27)
+	tree.Add(15)
+	tree.Add(25)
+	tree.Add(12)
 	PrintBstSequencesOfTheTree(tree)
 }
 
@@ -31,7 +33,6 @@ func GetBstSequencesOfTheNode(root *BinaryTreeNode) (sequence [][]int) {
 
 	leftSequences := GetBstSequencesOfTheNode(root.LeftChild)
 	rightSequences := GetBstSequencesOfTheNode(root.RightChild)
-
 	sequence = append(sequence, CombineSequences(PrependItemToAllTermsOfTheSequence(root.Data, leftSequences), rightSequences)...)
 	sequence = append(sequence, CombineSequences(PrependItemToAllTermsOfTheSequence(root.Data, rightSequences), leftSequences)...)
 

@@ -5,6 +5,10 @@ import (
 )
 
 func main() {
-	treesandgraphs.RunExampleOfGetPathWithSums()
+
+
+	treesandgraphs.RunExampleOfPrintBstSequencesOfTheTree()
+
+	//treesandgraphs.RunExampleOfGetPathWithSums()
 	//treesandgraphs.PrintInOrder(tree.Root)
 }

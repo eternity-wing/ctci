@@ -2,17 +2,17 @@ package treesandgraphs
 
 import "fmt"
 
-func IsSubTree(tree BinaryTree, subTree BinaryTree) bool  {
-	if tree.Root == nil && subTree.Root == nil{
+func IsIncluded(bigTree BinaryTree, subTree BinaryTree) bool  {
+	if bigTree.Root == nil && subTree.Root == nil{
 		return true
 	}
-	if tree.Root == nil || subTree.Root == nil{
+	if bigTree.Root == nil || subTree.Root == nil{
 		return false
 	}
-	return IsSubNode(subTree.Root, tree.Find(subTree.Root.Data))
+	return IsEqual(subTree.Root, bigTree.Find(subTree.Root.Data))
 }
 
-func IsSubNode(node1 *BinaryTreeNode, node2 *BinaryTreeNode) bool {
+func IsEqual(node1 *BinaryTreeNode, node2 *BinaryTreeNode) bool {
 	if node1 == nil {
 		return true
 	}
@@ -20,7 +20,7 @@ func IsSubNode(node1 *BinaryTreeNode, node2 *BinaryTreeNode) bool {
 		return false
 	}
 
-	return IsSubNode(node1.LeftChild, node2.LeftChild) && IsSubNode(node1.RightChild, node2.RightChild)
+	return IsEqual(node1.LeftChild, node2.LeftChild) && IsEqual(node1.RightChild, node2.RightChild)
 }
 
 
@@ -42,5 +42,5 @@ func RunExampleOfIsSubtree() {
 	node16.RightChild = NewBinaryTreeNode(4)
 	subtree.Insert(node16)
 
-	fmt.Printf("\nfound:%+v", IsSubTree(tree, subtree))
+	fmt.Printf("\nfound:%+v", IsIncluded(tree, subtree))
 }

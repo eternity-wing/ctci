@@ -30,7 +30,7 @@ func GetStrictPreOrderPresentation(node *treesandgraphs.BinaryTreeNode) (preOrde
 	if node == nil {
 		return "*"
 	}
-	return fmt.Sprintf("%d%s%s", node.Data, GetStrictPreOrderPresentation(node.LeftChild), GetStrictPreOrderPresentation(node.RightChild))
+	return fmt.Sprintf("%d-%s-%s", node.Data, GetStrictPreOrderPresentation(node.LeftChild), GetStrictPreOrderPresentation(node.RightChild))
 }
 
 func RunExampleOfIsSubtree() {

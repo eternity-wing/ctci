@@ -15,7 +15,7 @@ func validateBSTNode(node *treesandgraphs.BinaryTreeNode, min float64, max float
 		return true
 	}
 	nodeData := float64(node.Data)
-	if nodeData <= min || nodeData > max {
+	if nodeData <= min || nodeData >= max {
 		return false
 	}
 	return validateBSTNode(node.LeftChild, min, nodeData) && validateBSTNode(node.RightChild, nodeData, max)

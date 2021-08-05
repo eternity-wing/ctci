@@ -1,11 +1,11 @@
 package treesandgraphs
 
 type BinaryTreeNode struct {
-	Parent                *BinaryTreeNode
-	LeftChild             *BinaryTreeNode
-	RightChild            *BinaryTreeNode
-	Data                  int
-	NumberOfGrandChildren int
+	Parent     *BinaryTreeNode
+	LeftChild  *BinaryTreeNode
+	RightChild *BinaryTreeNode
+	Data       int
+	Size       int
 }
 
 func (b *BinaryTreeNode) IsLeaf() bool {
@@ -21,7 +21,7 @@ func (b *BinaryTreeNode) IncrementAncestorsNumberOfGrandChildren()  {
 	if b == nil{
 		return
 	}
-	b.NumberOfGrandChildren++
+	b.Size++
 	b.Parent.IncrementAncestorsNumberOfGrandChildren()
 }
 
@@ -29,6 +29,6 @@ func (b *BinaryTreeNode) DecrementAncestorsNumberOfGrandChildren()  {
 	if b == nil{
 		return
 	}
-	b.NumberOfGrandChildren--
+	b.Size--
 	b.Parent.IncrementAncestorsNumberOfGrandChildren()
 }

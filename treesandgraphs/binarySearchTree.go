@@ -2,7 +2,6 @@ package treesandgraphs
 
 import (
 	"math/rand"
-	"time"
 )
 
 type BinarySearchTree struct {
@@ -11,8 +10,8 @@ type BinarySearchTree struct {
 
 func (b *BinarySearchTree) Add(value int) {
 	newNode := &BinaryTreeNode{
-		Data:                  value,
-		NumberOfGrandChildren: 1,
+		Data: value,
+		Size: 1,
 	}
 
 	if b.Root == nil {
@@ -63,17 +62,22 @@ func (b *BinarySearchTree) PrintInOrder() {
 func (b *BinarySearchTree) GetRandomNode() *BinaryTreeNode {
 	return b.getRandomNode(b.Root)
 }
+func (b *BinarySearchTree) GetRandomNode1() *BinaryTreeNode {
+	return b.getRandomNode1(b.Root)
+}
 
 func (b *BinarySearchTree) getRandomNode(node *BinaryTreeNode) *BinaryTreeNode {
-	numberOfLeftChildGrandChildren := b.GetNumberOfGrandChildren(node.LeftChild)
-	singleNodeProbability := float64(1) / float64(b.GetNumberOfGrandChildren(node))
+	leftSize := b.GetNodeSize(node.LeftChild)
+	singleNodeProbability := float64(1) / float64(b.GetNodeSize(node))
 
-	nodeProbability := 1 * singleNodeProbability
-	leftSubTreeProbability := float64(numberOfLeftChildGrandChildren) * singleNodeProbability
+	nodeProbability := singleNodeProbability
+	leftSubTreeProbability := float64(leftSize) * singleNodeProbability
 
-	rand.Seed(time.Now().UnixNano())
-	roll := 0 + rand.Float64()*(1)
 
+	roll := rand.Float64()*(1)
+
+	// 0.5
+	// [ 0.1, 0.5, 0.4 ]
 	if roll <= nodeProbability {
 		return node
 	} else if roll <= nodeProbability+leftSubTreeProbability {
@@ -83,9 +87,28 @@ func (b *BinarySearchTree) getRandomNode(node *BinaryTreeNode) *BinaryTreeNode {
 	}
 }
 
-func (b *BinarySearchTree) GetNumberOfGrandChildren(node *BinaryTreeNode) int {
+func (b *BinarySearchTree) getRandomNode1(node *BinaryTreeNode) *BinaryTreeNode {
+	index := rand.Intn(b.GetNodeSize(node))
+	randomNode := node
+	counter := 0
+	for ; ; {
+		if counter == index {
+			return randomNode
+		}
+		leftSubtreeSize := b.GetNodeSize(randomNode.LeftChild)
+		if index-counter > leftSubtreeSize {
+			counter += leftSubtreeSize + 1
+			randomNode = randomNode.RightChild
+		} else {
+			counter += 1
+			randomNode = randomNode.LeftChild
+		}
+	}
+}
+
+func (b *BinarySearchTree) GetNodeSize(node *BinaryTreeNode) int {
 	if node == nil {
 		return 0
 	}
-	return node.NumberOfGrandChildren
+	return node.Size
 }

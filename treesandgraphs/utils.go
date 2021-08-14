@@ -36,6 +36,25 @@ func GetBSTNodeHeight(node *BinaryTreeNode) int {
 	return int(math.Max(float64(GetBSTNodeHeight(node.LeftChild)), float64(GetBSTNodeHeight(node.RightChild))) + 1)
 }
 
+func GetBreathNodes1(bst BinarySearchTree) map[int]*list.List {
+	listOfDepths := make(map[int]*list.List)
+	InOrder(bst.Root, listOfDepths, 0)
+	return listOfDepths
+}
+
+func InOrder(node *BinaryTreeNode, listOfDepths map[int]*list.List, depth int)  {
+	if node == nil{
+		return
+	}
+	if _, ok := listOfDepths[depth] ; !ok{
+		listOfDepths[depth] = list.New()
+	}
+	listOfDepths[depth].PushFront(node)
+	InOrder(node.LeftChild, listOfDepths, depth + 1)
+	InOrder(node.RightChild, listOfDepths, depth + 1)
+}
+
+
 func GetBreathNodes(bst BinarySearchTree) map[int]*list.List {
 	listOfDepths := make(map[int]*list.List)
 	firstDepthNodes := list.New()

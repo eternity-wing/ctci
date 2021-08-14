@@ -52,6 +52,9 @@ func (b *BinarySearchTree) IsBalance() bool {
 		return true
 	}
 	balanceFactor := GetBSTNodeBalanceFactor(*b.Root)
+	if balanceFactor > 1 && balanceFactor < -1 {
+		return false
+	}
 	return balanceFactor <= 1 && balanceFactor >= -1
 }
 
